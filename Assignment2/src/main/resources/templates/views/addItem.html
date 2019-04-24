@@ -1,0 +1,54 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<title></title>
+</head>
+<body>
+
+	<div layout:fragment="content" class="container mySpace">
+		<form th:action="@{/addItem}" th:object="${item}" method="post">
+
+			<div class="form-group">
+				<label for="Category" class="form-control-label">Category</label> <input
+					type="text" class="form-control" th:field="*{category}" id="category" />
+				<div class="text text-danger" th:if="${#fields.hasErrors('category')}"
+					th:errors="*{category}"></div>
+			</div>
+			<div class="form-group">
+				<label for="Manufacturer" class="form-control-label">Manufacturer</label>
+				<input type="text" class="form-control" th:field="*{manufacturer}"
+					id="manufacturer" />
+				<div class="text text-danger"
+					th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"></div>
+
+			</div>
+			<div class="form-group">
+				<label for="Title" class="form-control-label">Title</label> <input
+					type="text" class="form-control" th:field="*{title}"
+					id="title"  />
+				<div class="text text-danger"
+					th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+               </div>
+				<div class="form-group">
+					<label for="Price" class="form-control-label">Price</label>
+					<textarea   class="form-control" th:field="*{price}"
+						id="price">  </textarea>
+					<div class="text text-danger"
+						th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+						
+				<div class="form-group">
+					<label for="Stock" class="form-control-label">Stock</label>
+					<textarea   class="form-control" th:field="*{stock}"
+						id="stock">  </textarea>
+					<div class="text text-danger"
+						th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></div>
+
+
+				</div>
+				<input type="submit" value="Submit" class="btn btn-primary" />
+		</form>
+	</div>
+</body>
+</html>
