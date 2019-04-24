@@ -155,8 +155,7 @@ public class User {
 	private String password;
 	
 	private String address;
-//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//	private List<Task> tasks;
+
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "USER_ROLES", joinColumns={

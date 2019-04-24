@@ -41,6 +41,7 @@ public class RegisterController {
 
 		}
 		userService.createUser(user);
+		//assign to shopping cart
 		
 		return "views/success";
 
