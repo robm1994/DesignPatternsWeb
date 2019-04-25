@@ -2,7 +2,9 @@ package org.shop.controllers;
 
 import javax.validation.Valid;
 
+import org.shop.entities.ShoppingCart;
 import org.shop.entities.User;
+import org.shop.services.ShoppingCartService;
 import org.shop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,13 +13,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 @Controller
 public class RegisterController {
+	
+	
+	
 	@Autowired
 	private UserService userService;
 	
 
+	@Autowired
+	private ShoppingCartService shoppingCartService;
+
+	
+	
 	@GetMapping("/register")
 	public String registerForm(Model model) {
 
@@ -41,10 +50,11 @@ public class RegisterController {
 
 		}
 		userService.createUser(user);
-		//assign to shopping cart
-		
-		return "views/success";
+		ShoppingCart shoppingCart = new ShoppingCart();
+		shoppingCart.setUser(user);
+		shoppingCartService.saveShoppingCart(shoppingCart);
 
+		return "views/success";
 	}
 	
 	

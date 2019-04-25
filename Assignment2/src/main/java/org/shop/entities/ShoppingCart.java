@@ -1,12 +1,12 @@
 package org.shop.entities;
 
 import java.util.List;
-
-
-
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -20,16 +20,16 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ShoppingCart {
 
 @Id
-@NotEmpty
+@GeneratedValue(strategy=GenerationType.AUTO)
 private int cartId;
 
 
 
 @OneToMany(mappedBy = "shoppingCart")
-private List<CartItems> cartItems;
+private Set<CartItems> cartItems;
 
 @OneToOne(fetch = FetchType.LAZY, optional = false)
-@JoinColumn(name = "user_id", nullable = false)
+@JoinColumn(name = "user_email", nullable = false)
 private User user;
 
 public int getCartId() {
@@ -51,11 +51,11 @@ this.user = user;
 
 
 
-public List<CartItems> getCartItems() {
+public Set<CartItems> getCartItems() {
 return cartItems;
 }
 
-public void setCartItems(List<CartItems> cartItems) {
+public void setCartItems(Set<CartItems> cartItems) {
 this.cartItems = cartItems;
 }
 

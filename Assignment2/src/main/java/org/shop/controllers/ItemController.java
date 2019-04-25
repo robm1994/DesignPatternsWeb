@@ -43,6 +43,7 @@ return "redirect:/addItem";
 @GetMapping("/items")
 public String listItems(Model model, @RequestParam(defaultValue="")  String title) {
 model.addAttribute("items", itemService.findByTitle(title));
+//model.addAttribute("items", itemService.findByManufacturer(manufacturer));
 return "views/itemList";
 }
 

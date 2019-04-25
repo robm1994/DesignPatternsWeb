@@ -39,13 +39,17 @@ private List<UserOrder> userOrders;
 
 public int getItemId() {
 	return itemId;
-	}
-	public void setItemId(int itemId) {
+}
+	
+public void setItemId(int itemId) {
 	this.itemId = itemId;
-	}
-	public String getCategory() {
+	
+}
+	
+public String getCategory() {
 	return category;
-	}
+
+}
 	public void setCategory(String category) {
 	this.category = category;
 	}
@@ -74,4 +78,40 @@ public int getItemId() {
 	this.price = price;
 	}
 
+	
+	public Item() {
+		
+		
+	}
+
+	public Item(int itemId, String category, String manufacturer, String title, int stock, int price) {
+		
+		this.itemId = itemId;
+		this.category = category;
+		this.manufacturer = manufacturer;
+		this.title = title;
+		this.stock = stock;
+		this.price = price;
+		
+	}
+
+	public List<CartItems> getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(List<CartItems> cartItems) {
+		this.cartItems = cartItems;
+	}
+
+	public List<UserOrder> getUserOrders() {
+		return userOrders;
+	}
+
+	public void setUserOrders(List<UserOrder> userOrders) {
+		this.userOrders = userOrders;
+	}
+	
+
+	
+	
 }
