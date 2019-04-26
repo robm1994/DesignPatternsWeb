@@ -30,7 +30,7 @@ return  itemRepository.findByTitleLike("%"+title+"%");
 
 public List<Item> findByManufacturer(String manufacturer){
 	
-	return itemRepository.findByManufacturer("%"+manufacturer+"%");
+	return itemRepository.findByManufacturer(manufacturer);
 }
 
 }

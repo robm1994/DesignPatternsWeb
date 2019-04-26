@@ -59,4 +59,10 @@ public CartItems() {
 	public void setQuantity(int quantity) {
 	this.quantity = quantity;
 	}
+
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
+	}
+	
+	
 }

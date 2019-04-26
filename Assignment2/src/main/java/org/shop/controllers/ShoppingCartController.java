@@ -43,7 +43,6 @@ public class ShoppingCartController {
 	public String addToCart(Model model, @RequestParam("itemId") int id, @RequestParam(defaultValue = "") String title) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findOne(auth.getName());
-		System.out.println("id is" + id);
 		ShoppingCart shoppingCart = shoppingCartService.findByUserEmail(user.getEmail());
 		Item item = itemService.findOne(id);
 

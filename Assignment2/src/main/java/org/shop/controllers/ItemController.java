@@ -1,10 +1,11 @@
 package org.shop.controllers;
 
-import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.shop.entities.Item;
-import org.shop.entities.User;
 import org.shop.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,34 +18,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ItemController {
 
-@Autowired 
-private ItemService itemService;
+	@Autowired
+	private ItemService itemService;
 
-@GetMapping("/addItem")
-public String addItemForm(Model model) {
+	@GetMapping("/addItem")
+	public String addItemForm(Model model) {
 
-model.addAttribute("item", new Item());
-return "views/addItem";
-}
+		model.addAttribute("item", new Item());
+		return "views/addItem";
+	}
 
-@PostMapping("/addItem")
-public String addItem(@Valid Item item, BindingResult bindingResult, Model model) {
-if(bindingResult.hasErrors()) {
-return "views/addItem";
-}
+	@PostMapping("/addItem")
+	public String addItem(@Valid Item item, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "views/addItem";
+		}
 
-itemService.addItem(item);
+		itemService.addItem(item);
 
-return "redirect:/addItem";
+		return "redirect:/addItem";
 //return "views/profile";
-}
+	}
 
-
-@GetMapping("/items")
-public String listItems(Model model, @RequestParam(defaultValue="")  String title) {
-model.addAttribute("items", itemService.findByTitle(title));
+	@GetMapping("/items")
+	public String listItems(Model model, @RequestParam(defaultValue = "") String title) {
+		List<Item> items = new ArrayList<>();
+		items.addAll(itemService.findByTitle(title));
+		items.addAll(itemService.findByManufacturer(title));
+		model.addAttribute("items", itemService.findByTitle(title));
 //model.addAttribute("items", itemService.findByManufacturer(manufacturer));
-return "views/itemList";
-}
+		return "views/itemList";
+	}
 
 }
