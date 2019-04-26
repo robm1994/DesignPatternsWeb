@@ -10,21 +10,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderService {
 
-@Autowired
-private OrderRepository orderRepository;
+	@Autowired
+	private OrderRepository orderRepository;
 
-public UserOrder findById(int id) {
-return orderRepository.findById(id);
-}
+	public UserOrder findById(int id) {
+		return orderRepository.findById(id);
+	}
 
+	public ArrayList<UserOrder> findOrdersByUserEmail(String email) {
+		return orderRepository.findOrdersByUserEmail(email);
+	}
 
-public ArrayList<UserOrder> findOrdersByUserEmail(String email) {
-return orderRepository.findOrdersByUserEmail(email);
-}
-
-public void saveOrder(UserOrder order) {
-orderRepository.save(order);
-}
-
+	public void saveOrder(UserOrder order) {
+		orderRepository.save(order);
+	}
 
 }

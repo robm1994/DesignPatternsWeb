@@ -38,9 +38,9 @@ public class ShoppingCartController {
 	@Autowired
 	private CartItemsService cartItemsService;
 
-	
 	@GetMapping("/addToCart")
-	public String addToCart(Model model, @RequestParam("itemId") int id, @RequestParam(defaultValue = "") String title) {
+	public String addToCart(Model model, @RequestParam("itemId") int id,
+			@RequestParam(defaultValue = "") String title) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findOne(auth.getName());
 		ShoppingCart shoppingCart = shoppingCartService.findByUserEmail(user.getEmail());
@@ -79,7 +79,7 @@ public class ShoppingCartController {
 		List<Item> items = itemService.findByTitle(title);
 		model.addAttribute("items", items);
 
-		return "views/success";
+		return "views/itemList";
 	}
 
 	@GetMapping("/viewCart")

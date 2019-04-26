@@ -1,6 +1,7 @@
 package org.shop.entities;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,89 +15,96 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class UserOrder {
-@Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 
-@ManyToOne
-@JoinColumn(name = "USER_EMAIL", updatable = false)
-private User user;
+	@ManyToOne
+	@JoinColumn(name = "USER_EMAIL", updatable = false)
+	private User user;
 
-@ManyToMany(cascade = CascadeType.ALL)
-@JoinTable(name = "order_items", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
-private List<Item> orderItems;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "order_items", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
+	private Set<Item> orderItems;
 
-private double total;
-private String paymentMethod;
+	private double total;
+	private String paymentMethod;
+	private String address;
 
-public double getTotal() {
-return total;
-}
+	public double getTotal() {
+		return total;
+	}
 
-public void setTotal(double total) {
-this.total = total;
-}
+	public void setTotal(double total) {
+		this.total = total;
+	}
 
-public int getId() {
-return id;
-}
+	public int getId() {
+		return id;
+	}
 
-public void setId(int id) {
-this.id = id;
-}
+	public void setId(int id) {
+		this.id = id;
+	}
 
-public User getUser() {
-return user;
-}
+	public User getUser() {
+		return user;
+	}
 
-public void setUser(User user) {
-this.user = user;
-}
+	public String getAddress() {
+		return address;
+	}
 
-public List<Item> getItems() {
-return orderItems;
-}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-public void setItems(List<Item> items) {
-this.orderItems = items;
-}
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-public UserOrder(User user, List<Item> items) {
-this.user = user;
-this.orderItems = items;
-}
+	public Set<Item> getItems() {
+		return orderItems;
+	}
 
-public String getPaymentMethod() {
-return paymentMethod;
-}
+	public void setItems(Set<Item> items) {
+		this.orderItems = items;
+	}
 
-public void setPaymentMethod(String paymentMethod) {
-this.paymentMethod = paymentMethod;
-}
+	public UserOrder(User user, Set<Item> items) {
+		this.user = user;
+		this.orderItems = items;
+	}
 
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
 
-public List<Item> getOrderItems() {
-return orderItems;
-}
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
 
-public void setOrderItems(List<Item> orderItems) {
-this.orderItems = orderItems;
-}
+	public Set<Item> getOrderItems() {
+		return orderItems;
+	}
 
-public UserOrder() {
+	public void setOrderItems(List<Item> orderItems) {
+		this.orderItems = (Set<Item>) orderItems;
+	}
 
-}
+	public UserOrder() {
 
-public UserOrder(User user, List<Item> orderItems, double total) {
-this.user = user;
-this.orderItems = orderItems;
-this.total = total;
-}
+	}
 
-//public boolean pay(PaymentMethod method, Cart cart) {
-//double total = cart.calculateTotal();
-//return method.pay(total);
-//}
+	public UserOrder(User user, Set<Item> items, double total) {
+		this.user = user;
+		this.orderItems = items;
+		this.total = total;
+	}
 
+	public boolean pay(PaymentMethod method, ShoppingCart cart) {
+		double total = cart.calculateTotal();
+		return method.pay(total);
+	}
 
 }

@@ -15,36 +15,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class RegisterController {
-	
-	
-	
+
 	@Autowired
 	private UserService userService;
-	
 
 	@Autowired
 	private ShoppingCartService shoppingCartService;
 
-	
-	
 	@GetMapping("/register")
 	public String registerForm(Model model) {
 
 		model.addAttribute("user", new User());
 		return "views/registerForm";
 	}
-	
 
-	
-	
-	
 	@PostMapping("/register")
-    public String registerUser(@Valid User user, BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors()) {
+	public String registerUser(@Valid User user, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
 			return "views/registerForm";
 		}
-		if(userService.isUserPresent(user.getEmail())) {
-			model.addAttribute("exist",true);
+		if (userService.isUserPresent(user.getEmail())) {
+			model.addAttribute("exist", true);
 
 			return "views/registerForm";
 
@@ -56,8 +47,5 @@ public class RegisterController {
 
 		return "views/success";
 	}
-	
-	
-
 
 }

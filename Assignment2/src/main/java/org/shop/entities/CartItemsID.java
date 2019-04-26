@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class CartItemsID implements Serializable {
 
-private int shoppingCart;
+	private int shoppingCart;
 
-private int item;
+	private int item;
 }

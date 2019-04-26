@@ -1,5 +1,6 @@
 package org.shop.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -19,54 +20,61 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 public class ShoppingCart {
 
-@Id
-@GeneratedValue(strategy=GenerationType.AUTO)
-private int cartId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int cartId;
 
+	@OneToMany(mappedBy = "shoppingCart")
+	private Set<CartItems> cartItems;
 
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "user_email", nullable = false)
+	private User user;
 
-@OneToMany(mappedBy = "shoppingCart")
-private Set<CartItems> cartItems;
+	public int getCartId() {
+		return cartId;
+	}
 
-@OneToOne(fetch = FetchType.LAZY, optional = false)
-@JoinColumn(name = "user_email", nullable = false)
-private User user;
+	public void setCartId(int cartId) {
+		this.cartId = cartId;
+	}
 
-public int getCartId() {
-return cartId;
-}
+	public User getUser() {
+		return user;
+	}
 
-public void setCartId(int cartId) {
-this.cartId = cartId;
-}
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-public User getUser() {
-return user;
-}
+	public Set<CartItems> getCartItems() {
+		return cartItems;
+	}
 
-public void setUser(User user) {
-this.user = user;
-}
+	public void setCartItems(Set<CartItems> cartItems) {
+		this.cartItems = cartItems;
+	}
 
+	public ShoppingCart(User user) {
 
+		this.user = user;
+	}
 
+	public ShoppingCart() {
 
-public Set<CartItems> getCartItems() {
-return cartItems;
-}
+	}
 
-public void setCartItems(Set<CartItems> cartItems) {
-this.cartItems = cartItems;
-}
+	public double calculateTotal() {
+		double total = 0;
 
+		ArrayList<CartItems> cart_items = new ArrayList<CartItems>();
+		cart_items.addAll(this.getCartItems());
+		for (int i = 0; i < cart_items.size(); i++) {
+			Item item = cart_items.get(i).getItem();
+			total += (item.getPrice() * cart_items.get(i).getQuantity());
+		}
 
-public ShoppingCart(int cartId, User user) {
-this.cartId = cartId;
-this.user = user;
-}
-
-public ShoppingCart() {
-
-}
+		return total;
+	}
 
 }

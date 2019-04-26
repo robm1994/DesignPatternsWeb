@@ -7,9 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderRepository extends JpaRepository<UserOrder, Integer> {
 
-UserOrder findById(int id);
+	UserOrder findById(int id);
 
-ArrayList<UserOrder> findOrdersByUserEmail(String email);
-
+	ArrayList<UserOrder> findOrdersByUserEmail(String email);
 
 }

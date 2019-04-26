@@ -18,16 +18,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 
-
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource)
-		.usersByUsernameQuery("select email as principal, password as credentails, true from user where email=?")
-		.authoritiesByUsernameQuery("select user_email as principal, role_name as role from user_roles where user_email=?")
-		.passwordEncoder(passwordEncoder()).rolePrefix("ROLE_");  
-		
+				.usersByUsernameQuery(
+						"select email as principal, password as credentails, true from user where email=?")
+				.authoritiesByUsernameQuery(
+						"select user_email as principal, role_name as role from user_roles where user_email=?")
+				.passwordEncoder(passwordEncoder()).rolePrefix("ROLE_");
+
 	}
-   
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		// TODO Auto-generated method stub
@@ -36,12 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
-		http.authorizeRequests().antMatchers("/register",  "/login", "/css/**", "/webjars/**").permitAll()
-				.antMatchers("/profile").hasAnyRole("USER,ADMIN,WORKER")
-				.antMatchers("/users","/addTask").hasAnyRole("USER,ADMIN")
-				.and().formLogin().loginPage("/login").permitAll()
-				.defaultSuccessUrl("/").and().logout().logoutSuccessUrl("/login");
+
+		http.authorizeRequests().antMatchers("/register", "/login", "/css/**", "/webjars/**").permitAll()
+				.antMatchers("/profile").hasAnyRole("USER,ADMIN").antMatchers("/users")
+				.hasAnyRole("USER,ADMIN").and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/").and()
+				.logout().logoutSuccessUrl("/login");
 	}
 
 }

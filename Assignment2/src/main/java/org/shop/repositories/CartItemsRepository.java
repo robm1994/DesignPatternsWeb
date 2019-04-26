@@ -1,5 +1,6 @@
 package org.shop.repositories;
 
+import java.util.List;
 
 import org.shop.entities.CartItems;
 import org.shop.entities.Item;
@@ -9,10 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CartItemsRepository extends JpaRepository<CartItems, Integer> {
 
-	CartItems findByShoppingCartCartId(int cartId);
+	List<CartItems> findByShoppingCartCartId(int cartId);
 
 	CartItems findByItemItemId(int itemId);
-
-	
 
 }

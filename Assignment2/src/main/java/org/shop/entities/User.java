@@ -127,15 +127,18 @@ public class User {
 }*/
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -153,15 +156,21 @@ public class User {
 	private String name;
 	@Size(min = 4)
 	private String password;
-	
+
 	private String address;
 
-	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "USER_ROLES", joinColumns={
+	@JoinTable(name = "USER_ROLES", joinColumns = {
 			@JoinColumn(name = "USER_EMAIL", referencedColumnName = "email") }, inverseJoinColumns = {
 					@JoinColumn(name = "ROLE_NAME", referencedColumnName = "name") })
 	private List<Role> roles;
+
+	@OneToOne(fetch = FetchType.LAZY, optional = false, mappedBy = "user")
+	private ShoppingCart cart;
+
+	@OneToMany
+	@JoinColumn(name = "user_email")
+	private Set<UserOrder> orders;
 
 	public String getEmail() {
 		return email;
@@ -187,8 +196,6 @@ public class User {
 		this.password = password;
 	}
 
-
-
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -196,7 +203,6 @@ public class User {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
-	
 
 	public String getAddress() {
 		return address;
@@ -215,6 +221,22 @@ public class User {
 
 	public User() {
 
+	}
+
+	public ShoppingCart getCart() {
+		return cart;
+	}
+
+	public void setCart(ShoppingCart cart) {
+		this.cart = cart;
+	}
+
+	public Set<UserOrder> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Set<UserOrder> orders) {
+		this.orders = orders;
 	}
 
 }

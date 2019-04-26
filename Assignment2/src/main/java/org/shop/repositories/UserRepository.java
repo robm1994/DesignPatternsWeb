@@ -5,13 +5,14 @@ import java.util.List;
 import org.shop.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository  extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, String> {
 
-	List<User> findByNameLike(String name); 
+	List<User> findByNameLike(String name);
+
 	User findOne(String email);
-	//User findOne1(int id);
-	List<User>findByEmail(String email);
-	//void findByEmail(String email);
+
+	
+	List<User> findByEmail(String email);
 	
 
 }

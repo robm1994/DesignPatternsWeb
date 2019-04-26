@@ -3,9 +3,10 @@ package org.shop.entities;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Locale;
 
-public class Visa implements PaymentMethod {
+public class MasterCard implements PaymentMethod {
 
 	private final String name;
 	private final String cardNumber;
@@ -23,11 +24,11 @@ public class Visa implements PaymentMethod {
 		return expires;
 	}
 
-	public Visa(String name, String cardNumber, String expires) {
+	public MasterCard(String name, String cardNumber, String string) {
 		super();
 		this.name = name;
 		this.cardNumber = cardNumber;
-		this.expires = expires;
+		this.expires = string;
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class Visa implements PaymentMethod {
 
 	@Override
 	public boolean checkNumber(String cardNumber) {
-		if (cardNumber.length() != 16) {
+		if (cardNumber.length() != 15) {
 			return false;
 		} else {
 			return true;

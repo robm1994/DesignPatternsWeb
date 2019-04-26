@@ -12,25 +12,20 @@ public class ShoppingCartService {
 
 	@Autowired
 	private ShoppingCartRepository shoppingCartRepository;
-	
-	
 
 	public void saveShoppingCart(ShoppingCart shoppingCart) {
-		
+
 		shoppingCartRepository.save(shoppingCart);
-		
+
 	}
 
-
-
 	public ShoppingCart findByUserEmail(String email) {
-	
+
 		return shoppingCartRepository.findByUserEmail(email);
 	}
 
-	
 	public ShoppingCart findBycartId(int cartId) {
-		
+
 		return shoppingCartRepository.findByCartId(cartId);
 	}
 }

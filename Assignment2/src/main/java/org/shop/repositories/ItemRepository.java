@@ -7,12 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
-List<Item> findByTitleLike(String title);
+	List<Item> findByTitleLike(String title);
 
-List<Item> findByManufacturer(String manufacturer);
+	List<Item> findByManufacturer(String manufacturer);
 
 	Item findOne(int id);
-
-
 
 }
